@@ -1,0 +1,5 @@
+model,db_id,submitted,parse_errors,written,elapsed_s,last_error,out_dir
+golden,BiomedSQL,84,0,84,98.7,,sql_run_result_final\batch_2\golden\BiomedSQL
+gpt4o,BiomedSQL,84,0,84,57.1,,sql_run_result_final\batch_2\gpt4o\BiomedSQL
+claude,BiomedSQL,84,0,84,86.6,,sql_run_result_final\batch_2\claude\BiomedSQL
+gemini,BiomedSQL,84,0,84,15.9,,sql_run_result_final\batch_2\gemini\BiomedSQL

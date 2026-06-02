@@ -1,0 +1,4 @@
+model,total_query_count,model_success_count,golden_success_count,runtime_available_count,model_success_rate,golden_success_rate,batch
+claude,516,460,516,460,0.8914728682170543,1.0,2
+gemini,516,168,516,168,0.32558139534883723,1.0,2
+gpt4o,516,433,516,433,0.8391472868217055,1.0,2

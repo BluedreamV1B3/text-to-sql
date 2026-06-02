@@ -16,7 +16,7 @@ BiomedSQL/              Biomed schema and question definitions
 Insurance/              Insurance schema and question/query definitions
 KaggleDBQA/             KaggleDBQA schemas, questions, and prompt examples
 benchmark/workbooks/    Lightweight benchmark workbooks for batches 1-4
-benchmark/results/      Aggregate batch-level result summaries
+benchmark/results/      Aggregate and per-batch tabular result summaries
 notebooks/evaluation/   Original evaluation notebooks kept for reference
 docs/                   Setup and workflow notes
 ```
@@ -56,7 +56,8 @@ python evaluation/import_biomed_missing_tables.py --csv-dir data/biomed_csv_file
 python evaluation/rerun_biomed_missing_table_rows.py
 ```
 
-See [docs/workflow.md](docs/workflow.md) for the fuller workflow.
+See [docs/workflow.md](docs/workflow.md) for the fuller workflow, and
+[docs/results_data.md](docs/results_data.md) for the included result-data layout.
 
 ## Safety Notes
 

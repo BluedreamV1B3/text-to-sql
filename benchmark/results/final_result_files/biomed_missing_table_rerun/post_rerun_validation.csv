@@ -1,0 +1,4 @@
+batch,summary_rows,unique_request_ids,golden_errors_total,model_errors_total,missing_table_golden_error_rows,missing_table_model_error_rows,scored_gpt4o,scored_claude,scored_gemini
+2,1548,516,0,487,0,88,516,516,516
+3,1548,516,0,484,0,88,516,516,516
+4,1548,516,0,497,0,90,516,516,516
