@@ -1,0 +1,68 @@
+Question,Query,Results
+What are the top 5 U.S. states with the largest number of Medicare beneficiaries in 2008?,"Select top 5
+[SP_STATE_CODE], count(distinct [DESYNPUF_ID]) as beneficiary_count
+from [dbo].[Beneficiary]
+where year =2008
+group by [SP_STATE_CODE] order by beneficiary_count desc",
+What is the average inpatient Medicare reimbursement amount for beneficiaries with and without diabetes in 2010?,"select 
+distinct [SP_DIABETES], avg([MEDREIMB_IP]) 
+from [dbo].[Beneficiary]
+where year=2010
+group by [SP_DIABETES]",
+"For each 2009 beneficiary, what is their total carrier and outpatient reimbursement amount combined, and who are the top 5 beneficiaries by total amount?","select top 5
+[DESYNPUF_ID], sum([MEDREIMB_CAR]+[MEDREIMB_OP]) as total
+from [dbo].[Beneficiary]
+where year=2009
+group by [DESYNPUF_ID] order by total desc",
+What are the U.S. states whose average outpatient Medicare reimbursement exceeded $500 in both 2008 and 2010?,"select
+[SP_STATE_CODE]
+from (
+select [SP_STATE_CODE],[YEAR]
+from [dbo].[Beneficiary]
+where year in (2008,2010)
+group by [SP_STATE_CODE], [YEAR]
+having avg([MEDREIMB_OP]) > 500
+)
+y
+group by [SP_STATE_CODE]
+having count(*) = 2",
+"For 2008, what are the minimum, maximum, and average inpatient reimbursements per race group, rounded to two decimals?","select 
+[BENE_RACE_CD],
+round(min([MEDREIMB_IP]),2) as min_ip,
+round(avg([MEDREIMB_IP]),2) as avg_ip,
+round(max([MEDREIMB_IP]),2) as max_ip
+from [dbo].[Beneficiary]
+where year=2008
+group by [BENE_RACE_CD]",
+"Which chronic conditions had an average inpatient Medicare reimbursement greater than $3,000 among affected beneficiaries in 2010?","with staging as (
+select
+	b.[DESYNPUF_ID],
+	b.[YEAR],
+	b.[MEDREIMB_IP],
+	v.ConditionName,
+	v.HasCondition
+	from [dbo].[Beneficiary] as b
+	cross apply (values
+	('ALZHDMTA', b.[SP_ALZHDMTA]),
+	('CHF',[SP_CHF]),
+	('CNCR',[SP_CNCR]),
+	('COPD',[SP_COPD]),
+	('DIABETES',[SP_DIABETES]),
+	('CHRNKIDN',[SP_CHRNKIDN]),
+	('ISCHMCHT',[SP_ISCHMCHT]),
+	('OSTEOPRS',[SP_OSTEOPRS]),
+	('RA_OA',[SP_RA_OA]),
+	('STRKETIA',[SP_STRKETIA])
+	) as v(ConditionName, HasCondition)
+)
+select
+	ConditionName, 
+	avg([MEDREIMB_IP]) as Avg_ip_reimb,
+	count(*) as Affected_Beneficiaries
+from staging
+	where year=2010
+	and HasCondition=1
+group by ConditionName
+having avg([MEDREIMB_IP]) > 3000
+order by Avg_ip_reimb desc
+",

@@ -1,0 +1,8 @@
+anthropic
+google-genai
+openai
+openpyxl
+pandas
+pyodbc
+tenacity
+tqdm

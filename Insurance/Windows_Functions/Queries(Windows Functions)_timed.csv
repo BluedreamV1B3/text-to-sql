@@ -1,0 +1,100 @@
+﻿Question,Query,Result,AvgTime,MinTime,MaxTime,RunTimes,Error
+Who are the top 5 beneficiaries in 2010 ranked by total inpatient reimbursement?,"select top 5
+	[DESYNPUF_ID], 
+	[MEDREIMB_IP],
+	DENSE_RANK() over (order by [MEDREIMB_IP] desc) as ranking
+from [dbo].[Beneficiary]
+where [YEAR]=2010
+order by ranking",,0.10613315999507904,0.10381729900836945,0.10837819799780846,"[0.1044858992099762, 0.10381729900836945, 0.10837819799780846, 0.10622590035200119, 0.10775850340723991]",
+What is the cumulative (running) total of inpatient claim payments over time in 2009?," SELECT 
+     CLM_ADMSN_DT,
+     CLM_PMT_AMT,
+     SUM(CLM_PMT_AMT) OVER (ORDER BY CLM_ADMSN_DT 
+         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total
+ FROM DE1_0_2008_to_2010_Inpatient_Claims_Sample_1
+ WHERE EXTRACT(YEAR FROM CLM_ADMSN_DT) = 2009
+ ORDER BY CLM_ADMSN_DT;",WF - Running Total'!A1,,,,,"('42000', ""[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]'EXTRACT' is not a recognized built-in function name. (195) (SQLExecDirectW)"")"
+What is the 3-claim moving average of inpatient claim payment amounts for 2010?,"select
+	[CLM_ID],
+	[CLM_ADMSN_DT],
+	[CLM_PMT_AMT],
+	AVG([CLM_PMT_AMT]) OVER (order by [CLM_ADMSN_DT] 
+		rows between 2 preceding and current row) as moving_average
+from [dbo].[Inpatient_Claim]
+where 
+	year([CLM_ADMSN_DT]) = 2010
+	order by [CLM_ADMSN_DT], [CLM_ID]",Moving Average'!A1,0.06972360014915466,0.06817829981446266,0.07371749728918076,"[0.07371749728918076, 0.06975379958748817, 0.06848180294036865, 0.06848660111427307, 0.06817829981446266]",
+"For beneficiary 00016F745862898F, what is the change in inpatient reimbursement compared to their previous year?","select 
+	[DESYNPUF_ID],
+	[YEAR],
+	[MEDREIMB_IP],
+	[MEDREIMB_IP]-LAG([MEDREIMB_IP]) OVER(
+		PARTITION BY [DESYNPUF_ID] ORDER BY [YEAR]
+	) as year_dif
+from [dbo].[Beneficiary]
+where
+	[DESYNPUF_ID]='00016F745862898F'
+order by [YEAR]",,0.004904020577669144,0.004447702318429947,0.006232298910617828,"[0.006232298910617828, 0.004693903028964996, 0.004533600062131882, 0.004612598568201065, 0.004447702318429947]",
+"For each state, what is the total inpatient reimbursement by chronic condition (Diabetes, Heart Failure, or Cancer), showing only the top 5 highest reimbursed beneficiaries per state?","with condition_classified as (
+	select
+		[DESYNPUF_ID],
+		[SP_STATE_CODE],
+		CASE
+			WHEN [SP_DIABETES]=1 THEN 'Diabetes'
+			WHEN [SP_CHF]=1 THEN 'Heart Failure'
+			WHEN [SP_CNCR]=1 THEN 'Cancer'
+			ELSE NULL	
+		END condition,
+		[MEDREIMB_IP]
+	from [dbo].[Beneficiary]
+	where 
+		[YEAR]=2010 and 
+		(
+			[SP_DIABETES] = 1 OR
+			[SP_CHF] = 1 OR
+			[SP_CNCR] = 1
+		)
+), ranked as (
+select 
+	[DESYNPUF_ID],
+	[SP_STATE_CODE],
+	condition,
+	[MEDREIMB_IP],
+	SUM([MEDREIMB_IP]) OVER (PARTITION BY [SP_STATE_CODE], condition) as state_condition_total,
+	RANK() OVER (PARTITION BY [SP_STATE_CODE] ORDER BY [MEDREIMB_IP] DESC, [DESYNPUF_ID]) as rank_in_state
+	from condition_classified
+)
+select 
+	[DESYNPUF_ID],
+	[SP_STATE_CODE],
+	condition,
+	[MEDREIMB_IP],
+	state_condition_total,
+	rank_in_state
+	from ranked
+	where rank_in_state <=5
+	order by [SP_STATE_CODE], rank_in_state, [MEDREIMB_IP] desc",State Condition Rank'!A1,0.2515494205057621,0.24954690039157867,0.2536385990679264,"[0.2501556985080242, 0.24954690039157867, 0.2527546025812626, 0.2536385990679264, 0.2516513019800186]",
+"For U.S. state code = 53, what is the cumulative average inpatient reimbursement amount per quarter between 2008 and 2010?","with inpatient_quarters as (
+	select b.[SP_STATE_CODE] as state_code,
+	DATEADD(QUARTER, DATEDIFF(QUARTER,0, i.[CLM_ADMSN_DT]),0) as quarter_start,
+	i.[CLM_PMT_AMT] as payment_amount
+	from [dbo].[Inpatient_Claim] as i
+	join [dbo].[Beneficiary] as b
+	on i.[DESYNPUF_ID]=b.[DESYNPUF_ID]
+	where b.[SP_STATE_CODE]=53 and
+	YEAR(i.[CLM_ADMSN_DT]) between 2008 and 2010
+
+), average as (
+select 
+	quarter_start,
+	avg(payment_amount)  as average_payment
+	from inpatient_quarters 
+	group by state_code, quarter_start
+	)
+	select quarter_start, 
+	average_payment,
+	avg(average_payment) OVER (
+	 ORDER BY quarter_start ROWS BETWEEN
+	UNBOUNDED PRECEDING and CURRENT ROW) as cumulative_average
+	from average
+	",,0.11686349883675576,0.11564069986343384,0.1197981983423233,"[0.11564069986343384, 0.1197981983423233, 0.11564219743013382, 0.11693400144577026, 0.11630239710211754]",

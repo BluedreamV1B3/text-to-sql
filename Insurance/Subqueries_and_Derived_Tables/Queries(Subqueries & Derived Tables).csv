@@ -1,0 +1,63 @@
+Question,Query,Result
+How many 2010 beneficiaries have an inpatient Medicare reimbursement greater than the overall average for that year?,"select count(*) as beneficiaries
+from [dbo].[Beneficiary]
+where [YEAR]=2010
+and [MEDREIMB_IP] > (
+	select avg([MEDREIMB_IP])
+	from [dbo].[Beneficiary]
+	where [YEAR]=2010
+	and [MEDREIMB_IP] is not null
+)",11527
+"For each state in 2010, what is the number of beneficiaries whose inpatient reimbursement is greater than their state’s average?","select 
+	b1.[SP_STATE_CODE],
+	count(b1.[DESYNPUF_ID]) as beneficiary
+from 
+	[dbo].[Beneficiary] as b1
+where 
+	b1.[YEAR]=2010 and
+	b1.[MEDREIMB_IP]>(
+		select avg(b2.[MEDREIMB_IP])
+		from 
+		[dbo].[Beneficiary] as b2
+		where b1.[SP_STATE_CODE] = b2.[SP_STATE_CODE]
+		and b2.[YEAR]=2010
+	)
+group by 
+	b1.[SP_STATE_CODE]",
+How many beneficiaries in the outpatient claims also appear in the inpatient claims?,"select
+	count(distinct o.[DESYNPUF_ID]) as beneficiary
+from
+	[dbo].[Outpatient_Claim] as o
+where
+	o.[DESYNPUF_ID] in (
+	select distinct i.[DESYNPUF_ID]
+	from [dbo].[Inpatient_Claim] as i
+	)
+(although simpler as inner join)
+select count(distinct o.[DESYNPUF_ID]) as beneficiary
+from [dbo].[Outpatient_Claim] as o
+inner join [dbo].[Inpatient_Claim] as i
+on  o.[DESYNPUF_ID] = i.[DESYNPUF_ID] ",36314
+How many beneficiaries had at least one prescription drug event (PDE) and also had a carrier claim between 2008–2010?,"SELECT count (distinct c.[DESYNPUF_ID])
+  FROM [Insurance].[dbo].[Carrier_Claim] as c
+  inner join 
+	[Insurance].[dbo].[Prescription_Drug_Event] as p
+on c.[DESYNPUF_ID]=p.[DESYNPUF_ID]",94260
+Which states had a total inpatient reimbursement greater than the average total inpatient reimbursement across all states in 2010?,"with StateTotals as (
+	select 
+		[SP_STATE_CODE],
+		sum([MEDREIMB_IP]) as total_ip_reimb
+	from [dbo].[Beneficiary]
+	where [YEAR] =2010
+	and [MEDREIMB_IP] is not null
+	group by [SP_STATE_CODE]
+)
+select 
+	[SP_STATE_CODE],
+	total_ip_reimb
+from StateTotals
+where total_ip_reimb > (
+	select avg(total_ip_reimb)
+	from StateTotals
+)
+order by total_ip_reimb",

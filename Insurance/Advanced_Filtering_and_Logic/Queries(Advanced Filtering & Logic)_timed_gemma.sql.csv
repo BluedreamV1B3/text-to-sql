@@ -1,0 +1,62 @@
+Question,Query,Result,AvgTime,MinTime,MaxTime,RunTimes,Error,SQL_gemma,Explanation_gemma
+"For 2010, classify beneficiaries by inpatient Medicare reimbursement level as ‘Low’ (< 
+1000–
+5000), and count how many fall in each group.","select
+	case
+		when [MEDREIMB_IP] < 1000 then 'Low'
+		when [MEDREIMB_IP] between 1000 and 5000 then 'Medium'
+		else 'High'
+	end as ip_reimb_level,
+	count(*) as beneficiary
+	from [dbo].[Beneficiary]
+	where [YEAR]=2010
+	group by 
+	case
+		when [MEDREIMB_IP] < 1000 then 'Low'
+		when [MEDREIMB_IP] between 1000 and 5000 then 'Medium'
+		else 'High'
+	end
+	order by beneficiary desc",,0.0956944197416305,0.0926610007882118,0.0988985002040863,"[0.09354870021343231, 0.0988985002040863, 0.09613379836082458, 0.09723009914159775, 0.09266100078821182]",,,
+"How many inpatient claims have an admitting ICD9 diagnosis code starting with ‘41’, which indicates circulatory system diseases?","select
+	count(*) as circulatory_claim
+from [dbo].[Inpatient_Claim]
+where [ADMTNG_ICD9_DGNS_CD] like '41%'",2428.0,0.0209002397954463,0.019734501838684,0.0246652998030185,"[0.02466529980301857, 0.019863899797201157, 0.020305398851633072, 0.019734501838684082, 0.0199320986866951]",,,
+"In 2010, how many beneficiaries meet at least one of these conditions:(1) Has diabetes and COPD, or (2) Has depression but no heart failure?"," select
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from [dbo].[Beneficiary]
+where 
+	[YEAR]=2010 and
+	(
+		([SP_DIABETES]=1 and [SP_COPD]=1)
+		or
+		([SP_DEPRESSN]=1 and [SP_CHF]=0)
+	)",6474.0,0.0811618603765964,0.0783899016678333,0.0856067016720771,"[0.08560670167207718, 0.08035770058631897, 0.08218139782547951, 0.07927360013127327, 0.07838990166783333]",,,
+"What is the average inpatient reimbursement for beneficiaries with Alzheimer’s disease in 2010, grouped by gender, but only include states where the average is above $4000?","select 
+	[SP_STATE_CODE], [BENE_SEX_IDENT_CD], avg([MEDREIMB_IP]) as avg_ip_reimb
+from [dbo].[Beneficiary]
+where
+	[YEAR]=2010 and [SP_ALZHDMTA]=1
+group by 
+	[SP_STATE_CODE], [BENE_SEX_IDENT_CD]
+having avg([MEDREIMB_IP]) > 4000
+order by avg_ip_reimb desc",,0.0799495987594127,0.0766009986400604,0.0861354991793632,"[0.08613549917936325, 0.08115239813923836, 0.07660099864006042, 0.07692379876971245, 0.07893529906868935]",,,
+"How many inpatient claims were admitted between July 1, 2009 and September 30, 2009?","select
+	count(*) as claims
+from [dbo].[Inpatient_Claim]
+where
+	[CLM_ADMSN_DT] between '2009-07-01' and '2009-09-30'",6360.0,0.0213788613677024,0.0205201022326946,0.0237985029816627,"[0.02379850298166275, 0.020886801183223724, 0.020900901407003403, 0.020787999033927917, 0.020520102232694626]",,,
+"Among 2010 beneficiaries whose state code starts with ‘5’, how many had an inpatient reimbursement above their state’s average and were diagnosed with either diabetes or heart failure?","select
+	count(distinct b.[DESYNPUF_ID]) as beneficiary
+from 
+	[dbo].[Beneficiary] as b
+where
+	[YEAR]=2010 and
+	b.[SP_STATE_CODE] like '5%'
+	and (b.[SP_DIABETES]=1 or b.[SP_CHF]=1)
+	and b.[MEDREIMB_IP]>
+	(
+		select avg([MEDREIMB_IP]) 
+		from [dbo].[Beneficiary] as sub
+		where sub.[SP_STATE_CODE]=b.[SP_STATE_CODE]
+	)
+	",1227.0,0.1527082405984401,0.1499577984213829,0.1575840003788471,"[0.1499577984213829, 0.15475760027766228, 0.1510395035147667, 0.15020230039954185, 0.15758400037884712]",,,

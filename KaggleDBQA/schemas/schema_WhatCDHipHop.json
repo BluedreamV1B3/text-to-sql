@@ -1,0 +1,90 @@
+{
+  "column_descriptions": [
+    "*",
+    "Release title",
+    "Number of times the release has been downloaded.",
+    "Artist/group name.",
+    "Release year.",
+    "Release type (e.g. album single mixtape)",
+    "Unique release identifier from What.CD. Used to ensure no releases are duplicates.",
+    "unique identifier (essentially an index).",
+    "the index of the tags",
+    "unique identifier (essentially an index).",
+    "the tag of the tags"
+  ],
+  "column_names_original": [
+    [
+      -1,
+      "*"
+    ],
+    [
+      0,
+      "groupName"
+    ],
+    [
+      0,
+      "totalSnatched"
+    ],
+    [
+      0,
+      "artist"
+    ],
+    [
+      0,
+      "groupYear"
+    ],
+    [
+      0,
+      "releaseType"
+    ],
+    [
+      0,
+      "groupId"
+    ],
+    [
+      0,
+      "id"
+    ],
+    [
+      1,
+      "index"
+    ],
+    [
+      1,
+      "id"
+    ],
+    [
+      1,
+      "tag"
+    ]
+  ],
+  "column_types": [
+    "text",
+    "text",
+    "number",
+    "text",
+    "number",
+    "text",
+    "number",
+    "number",
+    "number",
+    "number",
+    "text"
+  ],
+  "db_id": "WhatCDHipHop",
+  "db_overview": "",
+  "foreign_keys": [
+    [
+      7,
+      9
+    ]
+  ],
+  "primary_keys": [
+    7,
+    9
+  ],
+  "table_names_original": [
+    "torrents",
+    "tags"
+  ]
+}

@@ -1,0 +1,40 @@
+Question,Query,Result
+How many unique beneficiaries had either an inpatient or an outpatient claim between 2008 and 2010?,"select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as combined",86738
+What is the total number of claim records from both inpatient and outpatient datasets (counting duplicates if a person appears in both)?,"select 
+	count(*) as beneficiary
+from
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as combined",86738
+How many beneficiaries had both inpatient and outpatient claims between 2008 and 2010?,"select 
+	count(distinct i.[DESYNPUF_ID]) as beneficiary
+from [dbo].[Inpatient_Claim] as i
+inner join 
+ [dbo].[Outpatient_Claim] as c
+on i.[DESYNPUF_ID] = c.[DESYNPUF_ID]",36314
+How many beneficiaries appear in inpatient claims but have no outpatient claims?,"select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from (
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	except
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as inpatient_only",1466
+"Among all beneficiaries who had any claim (inpatient or outpatient) between 2008–2010, how many did not have any prescription drug event (PDE) record?","select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from (
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) except
+select  [DESYNPUF_ID] from [dbo].[Prescription_Drug_Event]
+) as medical_no_pde",3891

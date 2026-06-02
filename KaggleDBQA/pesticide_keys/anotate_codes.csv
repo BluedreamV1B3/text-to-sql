@@ -1,0 +1,5 @@
+Annotate Code,Annotated Information
+Q,Residue at below quantifiable level (BQL)
+QV,Residue at <BQL> with presumptive violation - No Tolerance
+V,Residue with a presumptive violation - No Tolerance
+X,Residue with a presumptive violation - Exceeds Tolerance

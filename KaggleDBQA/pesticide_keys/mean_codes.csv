@@ -1,0 +1,6 @@
+Mean Code,Mean Result Finding
+A,Detect: Avg of Original & Re-extract
+ND,"Non-Detect: Validated, well-recovered"
+NP,Non-Detect: Marginal Performing Analyte
+O,Detect: Original Extraction Value
+R,Detect - Re-extraction Analysis Value

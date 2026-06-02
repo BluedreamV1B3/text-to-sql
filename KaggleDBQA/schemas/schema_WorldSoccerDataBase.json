@@ -1,0 +1,244 @@
+{
+  "column_descriptions": [
+    "*",
+    "the year of the betfront",
+    "the datetime of the betfront",
+    "the country of the betfront",
+    "the competion of the betfront",
+    "the match of the betfront",
+    "the home opening of the betfront",
+    "the draw opening of the betfront",
+    "the away opening of the betfront",
+    "the home closing of the betfront",
+    "the draw closing of the betfront",
+    "the away closing of the betfront",
+    "the season of the football_data",
+    "the datetime of the football_data",
+    "League Division",
+    "the country of the football_data",
+    "the league of the football_data",
+    "Match Referee",
+    "Home Team",
+    "Away Team",
+    "Full Time Home Team Goals",
+    "Full Time Away Team Goals",
+    "Full Time Result (H: Home Win, D: Draw, A: Away Win)",
+    "Half Time Home Team Goals",
+    "Half Time Away Team Goals",
+    "Half Time Result (H: Home Win, D: Draw, A: Away Win)",
+    "Pinnacle home win odds",
+    "Pinnacle draw odds",
+    "Pinnacle away win odds",
+    "Bet365 home win odds",
+    "Bet365 draw odds",
+    "Bet365 away win odds",
+    "Ladbrokes home win odds",
+    "Ladbrokes draw odds",
+    "Ladbrokes away win odds",
+    "Bet&Win home win odds",
+    "Bet&Win draw odds",
+    "Bet&Win away win odds"
+  ],
+  "column_names_original": [
+    [
+      -1,
+      "*"
+    ],
+    [
+      0,
+      "YEAR"
+    ],
+    [
+      0,
+      "DATETIME"
+    ],
+    [
+      0,
+      "COUNTRY"
+    ],
+    [
+      0,
+      "COMPETION"
+    ],
+    [
+      0,
+      "MATCH"
+    ],
+    [
+      0,
+      "HOME_OPENING"
+    ],
+    [
+      0,
+      "DRAW_OPENING"
+    ],
+    [
+      0,
+      "AWAY_OPENING"
+    ],
+    [
+      0,
+      "HOME_CLOSING"
+    ],
+    [
+      0,
+      "DRAW_CLOSING"
+    ],
+    [
+      0,
+      "AWAY_CLOSING"
+    ],
+    [
+      1,
+      "Season"
+    ],
+    [
+      1,
+      "Datetime"
+    ],
+    [
+      1,
+      "Div"
+    ],
+    [
+      1,
+      "Country"
+    ],
+    [
+      1,
+      "League"
+    ],
+    [
+      1,
+      "Referee"
+    ],
+    [
+      1,
+      "HomeTeam"
+    ],
+    [
+      1,
+      "AwayTeam"
+    ],
+    [
+      1,
+      "FTHG"
+    ],
+    [
+      1,
+      "FTAG"
+    ],
+    [
+      1,
+      "FTR"
+    ],
+    [
+      1,
+      "HTHG"
+    ],
+    [
+      1,
+      "HTAG"
+    ],
+    [
+      1,
+      "HTR"
+    ],
+    [
+      1,
+      "PSH"
+    ],
+    [
+      1,
+      "PSD"
+    ],
+    [
+      1,
+      "PSA"
+    ],
+    [
+      1,
+      "B365H"
+    ],
+    [
+      1,
+      "B365D"
+    ],
+    [
+      1,
+      "B365A"
+    ],
+    [
+      1,
+      "LBH"
+    ],
+    [
+      1,
+      "LBD"
+    ],
+    [
+      1,
+      "LBA"
+    ],
+    [
+      1,
+      "BWH"
+    ],
+    [
+      1,
+      "BWD"
+    ],
+    [
+      1,
+      "BWA"
+    ]
+  ],
+  "column_types": [
+    "text",
+    "number",
+    "time",
+    "text",
+    "text",
+    "text",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "text",
+    "time",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "number",
+    "number",
+    "text",
+    "number",
+    "number",
+    "text",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+    "number"
+  ],
+  "db_id": "WorldSoccerDataBase",
+  "db_overview": "",
+  "foreign_keys": [],
+  "primary_keys": [],
+  "table_names_original": [
+    "betfront",
+    "football_data"
+  ]
+}

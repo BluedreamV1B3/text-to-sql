@@ -1,0 +1,134 @@
+{
+  "column_descriptions": [
+    "*",
+    "numeric id key",
+    "nuclear power plant name",
+    "latitude in decimal format",
+    "longitude in decimal format",
+    "the country of the nuclear_power_plants",
+    "the status of the nuclear_power_plants",
+    "the reactortype of the nuclear_power_plants",
+    "nuclear reactor model",
+    "date when nuclear power plant construction was started",
+    "date when nuclear power plant became operational (also known as commercial operation date)",
+    "date when nuclear power plant was shutdown (also known as permanent shutdown date)",
+    "nuclear power plant capacity (design net capacity in MWe)",
+    "date and time when information was last updated",
+    "source of the information"
+  ],
+  "column_names_original": [
+    [
+      -1,
+      "*"
+    ],
+    [
+      0,
+      "Id"
+    ],
+    [
+      0,
+      "Name"
+    ],
+    [
+      0,
+      "Latitude"
+    ],
+    [
+      0,
+      "Longitude"
+    ],
+    [
+      0,
+      "Country"
+    ],
+    [
+      0,
+      "Status"
+    ],
+    [
+      0,
+      "ReactorType"
+    ],
+    [
+      0,
+      "ReactorModel"
+    ],
+    [
+      0,
+      "ConstructionStartAt"
+    ],
+    [
+      0,
+      "OperationalFrom"
+    ],
+    [
+      0,
+      "OperationalTo"
+    ],
+    [
+      0,
+      "Capacity"
+    ],
+    [
+      0,
+      "LastUpdatedAt"
+    ],
+    [
+      0,
+      "Source"
+    ]
+  ],
+  "column_types": [
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text"
+  ],
+  "db_id": "GeoNuclearData",
+  "db_overview": "This is a database about nuclear power plants around the world.",
+  "foreign_keys": [],
+  "primary_keys": [],
+  "table_names_original": [
+    "nuclear_power_plants"
+  ],
+  "value_enums": {
+      "ReactorType": {
+          "ABWR": "Advanced Boiling Water Reactor",
+          "AGR": "Advanced Gas-cooled Reactor",
+          "APR": "Advanced Power Reactor",
+          "APWR": "Advanced Pressurised Water Reactor",
+          "BWR": "Boiling Water Reactor",
+          "EPR": "Evolutionary Power Reactor",
+          "FBR": "Fast Breeder Reactor",
+          "GCR": "Gas-Cooled Reactor",
+          "HTGR": "High-Temperature Gas-cooled Reactor",
+          "HTR-PM": "High Temperature Reactor - Pebble Module",
+          "HWGCR": "Heavy Water Gas Cooled Reactor",
+          "HWLWR": "Heavy Water Light Water Reactor",
+          "HWOCR": "Heavy Water Organic Cooled Reactor",
+          "LFR": "Lead-cooled Fast Reactor",
+          "LMFBR": "Liquid Metal Fast Breeder Reactor",
+          "LMFR": "Liquid Metal Fast Reactor",
+          "LWGR": "Light Water Graphite Reactor",
+          "MSR": "Molten Salt Reactor",
+          "OCR": "Organic Cooled Reactor",
+          "PHWR": "Pressurised Heavy Water Reactor",
+          "PWR": "Pressurised Water Reactor",
+          "RBMK": "High Power Channel-Type Reactor (Reaktor Bolshoy Moshchnosti Kanalniy)",
+          "SGHWR": "Steam Generating Heavy Water Reactor",
+          "SGR": "Sodium-Graphite Reactor",
+          "TWR": "Traveling-Wave Reactor"
+      }
+  } 
+}

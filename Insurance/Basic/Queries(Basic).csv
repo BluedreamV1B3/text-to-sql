@@ -1,0 +1,26 @@
+Question,Query,Result
+How many distinct U.S. state codes are present in the 2010 beneficiary summary file?,"Select 
+count(distinct [SP_STATE_CODE])
+from [dbo].[Beneficiary]
+where year=2010 and [SP_STATE_CODE] is not null",52
+How many 2008 beneficiaries have a null (missing) inpatient reimbursement amount?,"Select 
+count(*)
+from [dbo].[Beneficiary]
+where [MEDREIMB_IP] is null",0
+How many 2010 beneficiaries have both diabetes and chronic obstructive pulmonary disease (COPD)?,"Select 
+count(*)
+from [dbo].[Beneficiary]
+where [SP_DIABETES] = 1 and [SP_COPD]=1",6474
+Which five beneficiaries in 2010 had the highest inpatient Medicare reimbursement amount?,"Select top 5
+[DESYNPUF_ID],[MEDREIMB_IP]
+from [dbo].[Beneficiary]
+where year=2010
+order by [MEDREIMB_IP] desc",
+"List the top 5 beneficiaries in 2009 who are from states 6, 12, or 36, have an outpatient reimbursement between 1000 and
+3000, and are not enrolled in HMO coverage.","Select top 6
+[DESYNPUF_ID], [MEDREIMB_OP]
+from [dbo].[Beneficiary]
+where year=2009 and [SP_STATE_CODE] in (6,12,36) and
+[MEDREIMB_OP] between 1000 and 3000 and
+[BENE_HMO_CVRAGE_TOT_MONS]=0
+order by [MEDREIMB_OP] desc",

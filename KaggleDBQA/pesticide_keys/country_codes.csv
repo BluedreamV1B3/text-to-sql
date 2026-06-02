@@ -1,0 +1,44 @@
+Country Code,Country Name
+150,Argentina
+190,Belgium
+260,Canada
+275,Chile
+280,China
+285,Colombia
+295,Costa Rica
+315,Denmark
+320,Dominican Republic
+325,Ecuador
+350,France
+400,Greece
+415,Guatemala
+430,Honduras
+455,India
+470,Ireland
+475,Israel
+595,Mexico
+660,New Zealand
+665,Nicaragua
+685,Norway
+700,Pakistan
+720,Peru
+825,Russia
+875,Thailand
+905,Turkey
+922,Egypt
+925,United Kingdom
+930,Uruguay
+945,Vietnam
+M06,Mexico / USA
+M15,China / USA
+M35,Argentina / USA
+M42,Argentina / Brazil
+M66,Argentina / Chile / USA
+MA6,Canada / USA
+MJ1,Argentina / Mexico / USA
+MJ8,China / Russia
+MK2,Argentina / China / Thailand / Uruguay / Vietnam / USA
+MK3,Chile / Turkey / USA
+MK4,Greece / USA
+MK5,Turkey / USA
+UNK,Unknown Country

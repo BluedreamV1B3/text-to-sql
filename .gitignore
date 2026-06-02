@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Jupyter noise
+.ipynb_checkpoints/
+
+# Generated experiment artifacts
+artifacts/
+exp_output/
+final_result_files/
+sql_run_result*/
+golden_sample_*/
+golden_insurance/
+*.jsonl
+
+# Large/local raw data
+data/
+KaggleDBQA/data/
+*.bak
+*.mdf
+*.ldf
+
+# Office temp files
+~$*.xlsx
+~$*.xls
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

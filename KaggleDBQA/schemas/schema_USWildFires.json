@@ -1,0 +1,135 @@
+{
+  "column_descriptions": [
+    "*",
+    "Calendar year in which the fire was discovered or confirmed to exist.",
+    "Date on which the fire was discovered or confirmed to exist.",
+    "Day of year on which the fire was discovered or confirmed to exist.",
+    "Time of day that the fire was discovered or confirmed to exist.",
+    "Code for the (statistical) cause of the fire.",
+    "Description of the (statistical) cause of the fire.",
+    "Date on which the fire was declared contained or otherwise controlled",
+    "Day of year on which the fire was declared contained or otherwise controlled.",
+    "Time of day that the fire was declared contained or otherwise controlled",
+    "Estimate of acres within the final perimeter of the fire.",
+    "Code for fire size based on the number of acres within the final fire perimeter expenditures.",
+    "Latitude (NAD83) for point location of the fire",
+    "Longitude (NAD83) for point location of the fire",
+    "Code for primary owner or entity responsible for managing the land at the point of origin of the fire at the time of the incident.",
+    "Name of primary owner or entity responsible for managing the land at the point of origin of the fire at the time of the incident.",
+    "Two-letter code for the state in which the unit is located",
+    "County, or equivalent, in which the fire burned (or originated), based on nominal designation in the fire report.",
+    "Three-digit code from the Federal Information Process Standards (FIPS) publication 6-4 for representation of counties and equivalent entities.",
+    "County name from the FIPS publication 6-4 for representation of counties and equivalent entities."
+  ],
+  "column_names_original": [
+    [
+      -1,
+      "*"
+    ],
+    [
+      0,
+      "FIRE_YEAR"
+    ],
+    [
+      0,
+      "DISCOVERY_DATE"
+    ],
+    [
+      0,
+      "DISCOVERY_DOY"
+    ],
+    [
+      0,
+      "DISCOVERY_TIME"
+    ],
+    [
+      0,
+      "STAT_CAUSE_CODE"
+    ],
+    [
+      0,
+      "STAT_CAUSE_DESCR"
+    ],
+    [
+      0,
+      "CONT_DATE"
+    ],
+    [
+      0,
+      "CONT_DOY"
+    ],
+    [
+      0,
+      "CONT_TIME"
+    ],
+    [
+      0,
+      "FIRE_SIZE"
+    ],
+    [
+      0,
+      "FIRE_SIZE_CLASS"
+    ],
+    [
+      0,
+      "LATITUDE"
+    ],
+    [
+      0,
+      "LONGITUDE"
+    ],
+    [
+      0,
+      "OWNER_CODE"
+    ],
+    [
+      0,
+      "OWNER_DESCR"
+    ],
+    [
+      0,
+      "STATE"
+    ],
+    [
+      0,
+      "COUNTY"
+    ],
+    [
+      0,
+      "FIPS_CODE"
+    ],
+    [
+      0,
+      "FIPS_NAME"
+    ]
+  ],
+  "column_types": [
+    "text",
+    "number",
+    "number",
+    "number",
+    "text",
+    "number",
+    "text",
+    "text",
+    "text",
+    "text",
+    "number",
+    "text",
+    "number",
+    "number",
+    "number",
+    "text",
+    "text",
+    "text",
+    "text",
+    "text"
+  ],
+  "db_id": "USWildFires",
+  "db_overview": "This data publication contains a spatial database of wildfires that occurred in the United States from 1992 to 2015. It is the third update of a publication originally generated to support the national Fire Program Analysis (FPA) system. The wildfire records were acquired from the reporting systems of federal, state, and local fire organizations. The following core data elements were required for records to be included in this data publication: discovery date, final fire size, and a point location at least as precise as Public Land Survey System (PLSS) section (1-square mile grid). The data were transformed to conform, when possible, to the data standards of the National Wildfire Coordinating Group (NWCG). Basic error-checking was performed and redundant records were identified and removed, to the degree possible. The resulting product, referred to as the Fire Program Analysis fire-occurrence database (FPA FOD), includes 1.88 million geo-referenced wildfire records, representing a total of 140 million acres burned during the 24-year period.",
+  "foreign_keys": [],
+  "primary_keys": [],
+  "table_names_original": [
+    "Fires"
+  ]
+}

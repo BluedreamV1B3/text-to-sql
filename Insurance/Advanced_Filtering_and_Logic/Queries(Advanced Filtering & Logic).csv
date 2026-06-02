@@ -1,0 +1,62 @@
+Question,Query,Result
+"For 2010, classify beneficiaries by inpatient Medicare reimbursement level as ‘Low’ (< 
+1000–
+5000), and count how many fall in each group.","select
+	case
+		when [MEDREIMB_IP] < 1000 then 'Low'
+		when [MEDREIMB_IP] between 1000 and 5000 then 'Medium'
+		else 'High'
+	end as ip_reimb_level,
+	count(*) as beneficiary
+	from [dbo].[Beneficiary]
+	where [YEAR]=2010
+	group by 
+	case
+		when [MEDREIMB_IP] < 1000 then 'Low'
+		when [MEDREIMB_IP] between 1000 and 5000 then 'Medium'
+		else 'High'
+	end
+	order by beneficiary desc",
+"How many inpatient claims have an admitting ICD9 diagnosis code starting with ‘41’, which indicates circulatory system diseases?","select
+	count(*) as circulatory_claim
+from [dbo].[Inpatient_Claim]
+where [ADMTNG_ICD9_DGNS_CD] like '41%'",2428
+"In 2010, how many beneficiaries meet at least one of these conditions:(1) Has diabetes and COPD, or (2) Has depression but no heart failure?"," select
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from [dbo].[Beneficiary]
+where 
+	[YEAR]=2010 and
+	(
+		([SP_DIABETES]=1 and [SP_COPD]=1)
+		or
+		([SP_DEPRESSN]=1 and [SP_CHF]=0)
+	)",6474
+"What is the average inpatient reimbursement for beneficiaries with Alzheimer’s disease in 2010, grouped by gender, but only include states where the average is above $4000?","select 
+	[SP_STATE_CODE], [BENE_SEX_IDENT_CD], avg([MEDREIMB_IP]) as avg_ip_reimb
+from [dbo].[Beneficiary]
+where
+	[YEAR]=2010 and [SP_ALZHDMTA]=1
+group by 
+	[SP_STATE_CODE], [BENE_SEX_IDENT_CD]
+having avg([MEDREIMB_IP]) > 4000
+order by avg_ip_reimb desc",
+"How many inpatient claims were admitted between July 1, 2009 and September 30, 2009?","select
+	count(*) as claims
+from [dbo].[Inpatient_Claim]
+where
+	[CLM_ADMSN_DT] between '2009-07-01' and '2009-09-30'",6360
+"Among 2010 beneficiaries whose state code starts with ‘5’, how many had an inpatient reimbursement above their state’s average and were diagnosed with either diabetes or heart failure?","select
+	count(distinct b.[DESYNPUF_ID]) as beneficiary
+from 
+	[dbo].[Beneficiary] as b
+where
+	[YEAR]=2010 and
+	b.[SP_STATE_CODE] like '5%'
+	and (b.[SP_DIABETES]=1 or b.[SP_CHF]=1)
+	and b.[MEDREIMB_IP]>
+	(
+		select avg([MEDREIMB_IP]) 
+		from [dbo].[Beneficiary] as sub
+		where sub.[SP_STATE_CODE]=b.[SP_STATE_CODE]
+	)
+	",1227

@@ -1,0 +1,40 @@
+﻿Question,Query,Result,AvgTime,MinTime,MaxTime,RunTimes,Error
+How many unique beneficiaries had either an inpatient or an outpatient claim between 2008 and 2010?,"select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as combined",86738,0.4527991995215416,0.4502053000032902,0.45446090027689934,"[0.45424579828977585, 0.45264770090579987, 0.4502053000032902, 0.45446090027689934, 0.45243629813194275]",
+What is the total number of claim records from both inpatient and outpatient datasets (counting duplicates if a person appears in both)?,"select 
+	count(*) as beneficiary
+from
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as combined",86738,0.4432779587805271,0.43843530118465424,0.4459449015557766,"[0.4459449015557766, 0.44176459684967995, 0.44591739773750305, 0.44432759657502174, 0.43843530118465424]",
+How many beneficiaries had both inpatient and outpatient claims between 2008 and 2010?,"select 
+	count(distinct i.[DESYNPUF_ID]) as beneficiary
+from [dbo].[Inpatient_Claim] as i
+inner join 
+ [dbo].[Outpatient_Claim] as c
+on i.[DESYNPUF_ID] = c.[DESYNPUF_ID]",36314,0.7076649807393551,0.7055655010044575,0.7099930010735989,"[0.7078581005334854, 0.7099930010735989, 0.7055655010044575, 0.7075898982584476, 0.707318402826786]",
+How many beneficiaries appear in inpatient claims but have no outpatient claims?,"select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from (
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	except
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) as inpatient_only",1466,0.4074644804000854,0.4062235988676548,0.4084788002073765,"[0.4084788002073765, 0.4062235988676548, 0.4081421010196209, 0.4064600020647049, 0.4080178998410702]",
+"Among all beneficiaries who had any claim (inpatient or outpatient) between 2008–2010, how many did not have any prescription drug event (PDE) record?","select 
+	count(distinct [DESYNPUF_ID]) as beneficiary
+from (
+(
+	select [DESYNPUF_ID] from [dbo].[Inpatient_Claim]
+	union
+	select [DESYNPUF_ID] from [dbo].[Outpatient_Claim]
+) except
+select  [DESYNPUF_ID] from [dbo].[Prescription_Drug_Event]
+) as medical_no_pde",3891,2.5140826396644114,2.510758999735117,2.5181147009134293,"[2.5114955008029938, 2.5181147009134293, 2.5137120969593525, 2.5163318999111652, 2.510758999735117]",

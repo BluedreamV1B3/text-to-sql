@@ -1,0 +1,53 @@
+Question,Query,Result
+How many unique beneficiaries in 2008 had at least one inpatient claim?,"select
+count(distinct b.[DESYNPUF_ID]) as beneficiaries
+from [dbo].[Beneficiary] as b
+inner join
+[dbo].[Inpatient_Claim] as i
+on b.[DESYNPUF_ID] = i.[DESYNPUF_ID]
+where b.[YEAR]=2008",37780
+"For 2008, how many beneficiaries had no inpatient claims?","select
+count(distinct b.[DESYNPUF_ID]) as beneficiaries
+from [dbo].[Beneficiary] as b
+left join
+[dbo].[Inpatient_Claim] as i
+on b.[DESYNPUF_ID] = i.[DESYNPUF_ID]
+where b.[YEAR]=2008 and i.[DESYNPUF_ID] is null",78572
+How many beneficiaries in 2008 appear in both inpatient claims and prescription drug (PDE) data?,"select
+count(distinct b.[DESYNPUF_ID]) as beneficiaries
+from [dbo].[Beneficiary] as b
+inner join
+[dbo].[Inpatient_Claim] as i
+on b.[DESYNPUF_ID] = i.[DESYNPUF_ID]
+inner join
+[dbo].[Prescription_Drug_Event] as p
+on b.[DESYNPUF_ID] = p.[DESYNPUF_ID]
+where b.[YEAR]=2008 ",36480
+How many pairs of distinct beneficiaries in 2010 lived in the same state and county?,"select
+count(*) 
+from 
+[dbo].[Beneficiary] as a
+join
+[dbo].[Beneficiary] as b
+on a.[SP_STATE_CODE]=b.[SP_STATE_CODE]
+and a.[BENE_COUNTY_CD] = b.[BENE_COUNTY_CD]
+and a.[DESYNPUF_ID]<b.[DESYNPUF_ID]
+and a.[YEAR]=2010 and b.[YEAR]=2010",14488459
+"Across 2008–2010, how many beneficiaries appear only in inpatient claims, only in outpatient claims, and in both?","select
+	case
+		when i.[DESYNPUF_ID] is not null and o.[DESYNPUF_ID] is null then 'Inpatient'
+		when i.[DESYNPUF_ID] is null and o.[DESYNPUF_ID] is not null then 'Outpatient'
+		when i.[DESYNPUF_ID] is not null and o.[DESYNPUF_ID] is not null then 'Both'
+	end as Category,
+	count(*) as beneficiary
+	from 
+		[dbo].[Inpatient_Claim] as i
+		full outer join
+		[dbo].[Outpatient_Claim] as o
+		on i.[DESYNPUF_ID]=o.[DESYNPUF_ID]
+	group by 
+	case
+		when i.[DESYNPUF_ID] is not null and o.[DESYNPUF_ID] is null then 'Inpatient'
+		when i.[DESYNPUF_ID] is null and o.[DESYNPUF_ID] is not null then 'Outpatient'
+		when i.[DESYNPUF_ID] is not null and o.[DESYNPUF_ID] is not null then 'Both'
+	end",

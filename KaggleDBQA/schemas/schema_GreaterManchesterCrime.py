@@ -1,0 +1,33 @@
+# Schema enriched from the sibling JSON file; includes original JSON metadata plus the compact tables map used by the pipeline.
+databaseSchema = {'db_id': 'GreaterManchesterCrime',
+ 'db_overview': 'GreaterManchesterCrime is a geolocated listing of ALL crimes detected and investigated by the Greater '
+                'Manchester Police Force in the United Kingdom, during August 2018.',
+ 'tables': {'GreaterManchesterCrime': {'pk': ['CrimeID'],
+                                       'fk': {},
+                                       'cols': {'CrimeID': 'text',
+                                                'CrimeTS': 'time',
+                                                'Location': 'text',
+                                                'LSOA': 'text',
+                                                'Type': 'text',
+                                                'Outcome': 'text'},
+                                       'enums': {}}},
+ 'column_descriptions': ['*',
+                         'this is a randomly generated text string to uniquely indentify each crime record',
+                         'the crime time stamp of the GreaterManchesterCrime',
+                         'this is the text description of the area in Greater Manchester where the crime occured',
+                         'Lower Layer Super Output Area (LSOA) is a GEOGRAPHIC AREA. Lower Layer Super Output Areas '
+                         'are a geographic hierarchy designed to improve the reporting of small area statistics in '
+                         'England and Wales',
+                         'this is the type or class of crime',
+                         'this is an indication of the outcome of the police investigation'],
+ 'column_names_original': [[-1, '*'],
+                           [0, 'CrimeID'],
+                           [0, 'CrimeTS'],
+                           [0, 'Location'],
+                           [0, 'LSOA'],
+                           [0, 'Type'],
+                           [0, 'Outcome']],
+ 'column_types': ['text', 'text', 'time', 'text', 'text', 'text', 'text'],
+ 'foreign_keys': [],
+ 'primary_keys': [1],
+ 'table_names_original': ['GreaterManchesterCrime']}
